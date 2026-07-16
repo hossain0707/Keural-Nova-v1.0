@@ -1,0 +1,47 @@
+# Stages 2 & 6 — evaluation harness config (lm_eval 0.4.12).
+# run_eval.py runs the same suite against the stock model (baseline) or a
+# merged checkpoint, writing versioned results under results/.
+
+# Benchmark suite (guide §1). Task names verified against installed lm_eval registry.
+suites:
+  korean:
+    - kmmlu           # group of KMMLU subsets
+    - haerae
+    - kobest
+  general:
+    - mmlu
+    - gsm8k
+    - humaneval       # needs HF_ALLOW_CODE_EVAL=1 + --confirm_run_unsafe_code
+
+num_fewshot: null      # use lm_eval task defaults
+batch_size: auto
+
+# Fast smoke-test mode: run_eval.py --smoke applies this per-task example cap.
+smoke_limit: 20
+
+backend:
+  # "vllm" (fast, needs GPUs free + env_check --gpu passed) or "hf" (accelerate).
+  default: vllm
+  vllm:
+    tensor_parallel_size: 2
+    gpu_memory_utilization: 0.85
+    max_model_len: 8192
+    dtype: bfloat16
+  hf:
+    # device_map spreads the 70GB bf16 model over both H200s
+    model_args_extra: "parallelize=True,dtype=bfloat16"
+
+generation:
+  # Qwen3.6 non-thinking path; matches model generation_config defaults
+  temperature: 0.0     # deterministic for benchmark comparability
+
+domain:
+  # Our own domain eval (guide §1: 50–100 graded examples). The harness runs any
+  # *.jsonl in this dir with schema {"id","prompt","reference","rubric"(opt)}.
+  # Empty/missing => the stage logs a WARNING and records "domain: skipped".
+  dir: "evals/domain"
+  max_new_tokens: 1024
+
+output:
+  results_dir: "results"
+  # results/<model_tag>/<timestamp>/{results.json, summary.json, config_snapshot.yaml}

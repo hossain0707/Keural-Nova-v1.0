@@ -1,0 +1,16 @@
+# -- runtime artifacts: never in git (huge / regenerable / machine-local) --
+venv
+data/
+outputs/
+logs/
+*.log
+
+# raw eval outputs are large; versioned summaries+comparisons ARE tracked
+results/*/*/raw/
+results/*/*/logs/
+
+# tooling / local state
+.claude/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

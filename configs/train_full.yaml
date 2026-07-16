@@ -1,0 +1,76 @@
+# Stage 4 — FULL SFT run. Values marked [RECONSTRUCTED] were lost to the guide's
+# truncation (see VERIFIED-FACTS.md §0.1) and are starting points per the guide's own
+# advice ("validate against your pilot run"). Everything else is verified/derived.
+#
+# train.py converts `swift_args` into a `swift sft` CLI invocation verbatim
+# (lists become space-separated multi-values). Do not rename keys casually — they
+# must remain valid ms-swift 4.4.0 argument names.
+
+run_name: "keural-sft-full"
+output_dir: "outputs/full"          # checkpoints under outputs/full/<run timestamp>
+
+nproc_per_node: 2
+cuda_visible_devices: "0,1"
+
+# Hard gate: train.py refuses to launch unless verify_lora_targets.py --pre passes.
+require_target_verification: true
+
+swift_args:
+  model: "Qwen/Qwen3.6-35B-A3B"
+  # REQUIRED true: ms-swift's own default is False (ModelScope hub), which
+  # ignores our fully-populated HF Hub cache and re-downloads the entire ~70GB
+  # model from ModelScope instead (verified 2026-07-10: see train_pilot.yaml).
+  use_hf: true
+  # ms-swift 4.4.0 renamed train_type -> tuner_type (verified against SftArguments)
+  tuner_type: lora
+  # datasets produced by stage 1 (paths resolved against project_root)
+  dataset: ["data/processed/train.jsonl"]
+  val_dataset: ["data/processed/eval.jsonl"]
+
+  # --- LoRA targeting (VERIFIED-FACTS.md §2, §5 — the whole point of this pipeline) ---
+  target_modules: [q_proj, k_proj, v_proj, o_proj,
+                   in_proj_qkv, in_proj_z, in_proj_b, in_proj_a, out_proj,
+                   gate_proj, up_proj, down_proj]
+  target_parameters: [gate_up_proj, down_proj]   # fused routed-expert nn.Parameters
+  lora_rank: 32
+  lora_alpha: 64
+  # REQUIRED 0.0: peft ParamWrapper crashes with dropout != 0 when target_parameters
+  # is used (verified 2026-07-08, peft 0.19.1). ms-swift's default 0.05 would crash.
+  lora_dropout: 0.0
+  freeze_vit: true
+  freeze_aligner: true
+
+  # --- data/template ---
+  max_length: 8192
+  truncation_strategy: delete        # drop over-length rather than corrupt
+  loss_scale: ignore_empty_think     # zero loss on the empty <think></think> scaffold
+  padding_free: false
+  packing: false
+
+  # --- optimization [RECONSTRUCTED] ---
+  torch_dtype: bfloat16
+  num_train_epochs: 2
+  per_device_train_batch_size: 1
+  per_device_eval_batch_size: 1
+  gradient_accumulation_steps: 16    # effective batch 32
+  learning_rate: 1.0e-4
+  lr_scheduler_type: cosine
+  warmup_ratio: 0.05
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  gradient_checkpointing: true
+  deepspeed: zero2
+  attn_impl: sdpa                    # flash_attn not installed; see VERIFIED-FACTS §1
+
+  # --- moe ---
+  router_aux_loss_coef: 0.001        # keep model's own value; router stays frozen
+
+  # --- logging / checkpointing ---
+  logging_steps: 10
+  save_steps: 500                    # user request 2026-07-12 (was 200); crash window ~7h
+  eval_steps: 500                    # aligned with save_steps (multiple-of constraint)
+  save_total_limit: 3
+  save_only_model: false             # keep optimizer state => resumable
+  report_to: [tensorboard]
+  seed: 42
+  dataloader_num_workers: 4

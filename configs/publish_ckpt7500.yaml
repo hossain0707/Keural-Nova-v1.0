@@ -1,0 +1,22 @@
+# Variant of publish.yaml for merging checkpoint-7500 (best eval-loss, end of
+# epoch 1) into a SEPARATE directory — investigation of the epoch-2 overfit
+# signal (2026-07-16). Everything except merge.checkpoint/merged_dir matches
+# publish.yaml.
+
+merge:
+  checkpoint: "outputs/full/20260713T004009Z/checkpoint-7500"
+  merged_dir: "outputs/merged/Keural-35B-A3B-ckpt7500"
+  preserve_mtp: true
+  copy_aux_files: true
+
+model_card:
+  name: "Keural-35B-A3B-ckpt7500"
+  base_model: "Qwen/Qwen3.6-35B-A3B"
+  license: "apache-2.0"
+  languages: [ko, en]
+  baseline_results: null
+  trained_results: null
+
+upload:
+  repo: "mkd-hossain/Keural-35B-A3B"
+  private: false

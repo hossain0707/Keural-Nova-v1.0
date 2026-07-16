@@ -1,0 +1,33 @@
+# Shared pipeline config — every script loads this first, then its stage config.
+# All relative paths are resolved against project_root.
+
+project_root: "/home/work/keural MoE Pro"
+
+model:
+  id: "Qwen/Qwen3.6-35B-A3B"
+  # Pinned commit of the base model (snapshot verified 2026-07-08).
+  revision: "995ad96eacd98c81ed38be0c5b274b04031597b0"
+
+paths:
+  data_dir: "data"
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  results_dir: "results"
+  outputs_dir: "outputs"
+  logs_dir: "logs"
+
+seed: 42
+
+hf:
+  # Where the final model is published (user account: mkd-hossain).
+  publish_repo: "mkd-hossain/Keural-35B-A3B"
+  private: true
+
+runtime:
+  # Guard thresholds used by common.assert_gpus_free(): a GPU counts as "free"
+  # if its used memory is below this many MiB (another team's job may be running!).
+  gpu_free_mib_threshold: 2048
+  min_free_disk_gb:
+    dataset: 30
+    train: 120
+    merge: 160

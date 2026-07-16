@@ -1,0 +1,30 @@
+# Stage 7 — merge, model card, upload.
+
+merge:
+  # LoRA checkpoint dir (contains adapter_config.json). Usually
+  # outputs/full/.../checkpoint-XXXX ; pass --checkpoint to override.
+  checkpoint: null
+  merged_dir: "outputs/merged/Keural-35B-A3B"
+  # Weight-level MTP preservation: transformers drops mtp.* on load
+  # (VERIFIED-FACTS §0.4) — merge_lora.py re-injects them from the base shards.
+  preserve_mtp: true
+  # Ship processor/tokenizer files with the merged model (guide arch-check note:
+  # the model is multimodal; vision processor files must ship — Section 8 intent).
+  copy_aux_files: true
+
+model_card:
+  name: "Keural-35B-A3B"
+  base_model: "Qwen/Qwen3.6-35B-A3B"
+  license: "apache-2.0"
+  languages: [ko, en]
+  # Populated automatically from results/ (baseline + post-training) and
+  # data/processed/dataset_manifest.json by make_model_card.py.
+  baseline_results: null      # auto: latest results/<base tag>/*/summary.json
+  trained_results: null       # auto: latest results/<merged tag>/*/summary.json
+
+upload:
+  repo: "mkd-hossain/Keural-35B-A3B"   # user's HF account (confirmed 2026-07-08)
+  # public per user decision 2026-07-16 (free-tier private storage cannot hold
+  # the 72 GB merged models; all data/licensing in the card is public-clean)
+  private: false
+  # Uses `hf upload` (current CLI; huggingface-cli is deprecated in hub 1.x).

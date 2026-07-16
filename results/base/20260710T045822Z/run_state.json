@@ -1,0 +1,14 @@
+{
+  "config_fingerprint": "c64e53a9e9b115ec",
+  "model": "Qwen/Qwen3.6-35B-A3B",
+  "revision": "995ad96eacd98c81ed38be0c5b274b04031597b0",
+  "tag": "base",
+  "backend": "vllm",
+  "suites": [
+    "korean",
+    "general",
+    "domain"
+  ],
+  "smoke": false,
+  "started": "20260710T045822Z"
+}

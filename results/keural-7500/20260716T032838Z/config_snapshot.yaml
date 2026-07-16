@@ -1,0 +1,50 @@
+suites:
+  korean:
+  - kmmlu
+  - haerae
+  - kobest
+  general:
+  - mmlu
+  - gsm8k
+  - humaneval
+num_fewshot: null
+batch_size: auto
+smoke_limit: 20
+backend:
+  default: vllm
+  vllm:
+    tensor_parallel_size: 2
+    gpu_memory_utilization: 0.85
+    max_model_len: 8192
+    dtype: bfloat16
+  hf:
+    model_args_extra: parallelize=True,dtype=bfloat16
+generation:
+  temperature: 0.0
+domain:
+  dir: evals/domain
+  max_new_tokens: 1024
+output:
+  results_dir: results
+pipeline:
+  project_root: /home/work/keural MoE Pro
+  model:
+    id: Qwen/Qwen3.6-35B-A3B
+    revision: 995ad96eacd98c81ed38be0c5b274b04031597b0
+  paths:
+    data_dir: data
+    raw_dir: data/raw
+    processed_dir: data/processed
+    results_dir: results
+    outputs_dir: outputs
+    logs_dir: logs
+  seed: 42
+  hf:
+    publish_repo: mkd-hossain/Keural-35B-A3B
+    private: true
+  runtime:
+    gpu_free_mib_threshold: 2048
+    min_free_disk_gb:
+      dataset: 30
+      train: 120
+      merge: 160

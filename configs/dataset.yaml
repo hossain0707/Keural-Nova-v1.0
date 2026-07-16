@@ -1,0 +1,135 @@
+# Stage 1 — dataset build config. See VERIFIED-FACTS.md §4 for provenance.
+# Counts and exclusions come from keural-sft-training-guide.md §2 (verified against
+# each repo's README/license table on 2026-07-08).
+#
+# Total target after the 2026-07-09 Mkd-Yonas addition: ~263k rows pre-dedup
+# (157k mkd-chanwoo + ~106k Mkd-Yonas), before eval/pilot split and dedup drops.
+
+output:
+  train_file: "data/processed/train.jsonl"
+  eval_file: "data/processed/eval.jsonl"
+  pilot_file: "data/processed/pilot.jsonl"          # proportional ~5k slice, guide §4
+  manifest_file: "data/processed/dataset_manifest.json"
+  stats_file: "data/processed/dataset_stats.json"
+
+eval_split:
+  fraction: 0.01
+  max_examples: 2000
+
+pilot:
+  total_examples: 5000
+
+# Every source row is {"text": <ChatML str>, "source_name": str, "license": str, "n_tokens": int}
+sources:
+  - name: keural_conversation_ko
+    repo: "mkd-chanwoo/keural-conversation-chatml-ko"
+    revision: "64a8c45cf5d777b77fe8e1351e5a52da9dd6868b"
+    files: ["keural_conversation_shard_0000.jsonl"]
+    sample: 40000
+    available: 133339
+  - name: keural_rag_ko
+    repo: "mkd-chanwoo/keural-rag-chatml-ko"
+    revision: "aa9023d231a3451d25135d5aa84b12b48ca06450"
+    # NOTE: this repo's manifest.json is STALE (lists a conversation shard that was
+    # moved to its own repo). File list below is the verified truth — do not glob
+    # from the manifest.
+    files: ["keural_synthetic_sft_shard_0000.jsonl"]
+    sample: 40000
+    available: 303355
+  - name: keural_sft_ko
+    repo: "mkd-chanwoo/keural-SFT"
+    revision: "ce73cdc04d4b0e2a1cc4d69deb94749691d6ab2c"
+    files: "shard_*.jsonl"          # 115 shards; fully present in local HF cache
+    include_source_names: [orca_math_korean, koinstruct_qa, koinstruct_base, koalpaca]
+    sample: 50000
+    available: 294028
+  - name: keural_sft_en
+    repo: "mkd-chanwoo/keural-SFT"
+    revision: "ce73cdc04d4b0e2a1cc4d69deb94749691d6ab2c"
+    files: "shard_*.jsonl"
+    include_source_names: [ultrachat, openorca, alpaca, magicoder, mathinstruct, gsm8k]
+    sample: 12000
+  - name: keural_qa_en
+    repo: "mkd-chanwoo/keural-QA-chatml-en"
+    revision: "29088c640d47e1cbc380230595d4316e70272efe"
+    files: ["keural_qa_en_shard_0000.jsonl", "keural_qa_en_shard_0001.jsonl"]
+    sample: 15000
+    available: 1580359
+
+  # --- Mkd-Yonas/keural-SFT-chatml-ko-v1 (added 2026-07-09) ---
+  # Same {text, source_name, license, n_tokens} ChatML schema, all sources verified
+  # MIT/Apache-2.0/CC-BY-4.0, no AI Hub content (see DATASET-REQUIREMENTS.md §3).
+  # claude_reasoning_ko is derived from Claude-generated outputs; commercial use of
+  # this specific source was explicitly confirmed/cleared by the user 2026-07-09.
+  - name: yonas_kocommercial
+    repo: "Mkd-Yonas/keural-SFT-chatml-ko-v1"
+    revision: "c56d7885efb37799deb1ecba471e4f6bf263852e"
+    files: ["kocommercial_shard_0000.jsonl"]
+    sample: 20000
+    available: 171462
+  - name: yonas_kullm_v2
+    repo: "Mkd-Yonas/keural-SFT-chatml-ko-v1"
+    revision: "c56d7885efb37799deb1ecba471e4f6bf263852e"
+    files: ["kullm_v2_shard_0000.jsonl"]
+    sample: 15000
+    available: 127932
+  - name: yonas_openorca_gugugo_ko
+    repo: "Mkd-Yonas/keural-SFT-chatml-ko-v1"
+    revision: "c56d7885efb37799deb1ecba471e4f6bf263852e"
+    files: ["openorca_gugugo_ko_shard_0000.jsonl"]
+    sample: 20000
+    available: 315323
+  - name: yonas_openorca_ko
+    repo: "Mkd-Yonas/keural-SFT-chatml-ko-v1"
+    revision: "c56d7885efb37799deb1ecba471e4f6bf263852e"
+    files: ["openorca_ko_shard_0000.jsonl"]
+    # small sample: overlaps mkd-chanwoo's own "openorca" source in keural_sft_en;
+    # cross-source dedup (dedup.enabled below) drops exact-text duplicates.
+    sample: 5000
+    available: 14853
+  - name: yonas_kopen_platypus
+    repo: "Mkd-Yonas/keural-SFT-chatml-ko-v1"
+    revision: "c56d7885efb37799deb1ecba471e4f6bf263852e"
+    files: ["kopen_platypus_shard_0000.jsonl"]
+    sample: 10000
+    available: 17464
+  - name: yonas_korean_safe_conversation
+    repo: "Mkd-Yonas/keural-SFT-chatml-ko-v1"
+    revision: "c56d7885efb37799deb1ecba471e4f6bf263852e"
+    files: ["korean_safe_conversation_shard_0000.jsonl"]
+    sample: 15000
+    available: 26803
+  - name: yonas_medical_reasoning_ko
+    repo: "Mkd-Yonas/keural-SFT-chatml-ko-v1"
+    revision: "c56d7885efb37799deb1ecba471e4f6bf263852e"
+    files: ["medical_reasoning_ko_shard_0000.jsonl"]
+    sample: 10000
+    available: 24208
+  - name: yonas_claude_reasoning_ko
+    repo: "Mkd-Yonas/keural-SFT-chatml-ko-v1"
+    revision: "c56d7885efb37799deb1ecba471e4f6bf263852e"
+    files: ["claude_reasoning_ko_shard_0000.jsonl"]
+    sample: 11050          # take all — commercial use cleared by user 2026-07-09
+    available: 11050
+
+# Optional company/domain data (guide §2: 15k–20k). JSONL, either already in
+# {"messages": [...]} schema or {"text": <ChatML>}. Skipped with a warning if null.
+company_data:
+  path: null
+  sample: 20000
+
+# License exclusions (guide §2, assumes worst-case AI Hub terms — see the guide's
+# action item about confirming with chanwoo before relaxing these).
+exclusions:
+  source_names: [aihub_multisession_sci, aihub_multisession_social, aihub_expert_qa]
+  # belt-and-braces: drop any row whose license field matches (case-insensitive)
+  license_regex: "(nc|non[-_ ]?commercial|aihub)"
+
+format:
+  # Prefix added to EVERY assistant turn (guide §3: empty-think, applied everywhere).
+  think_prefix: "<think>\n\n</think>\n\n"
+  max_tokens_per_example: 8192     # source data truncation; rows above this are dropped
+  drop_if_no_assistant: true
+
+dedup:
+  enabled: true                    # exact-hash dedup on normalized text

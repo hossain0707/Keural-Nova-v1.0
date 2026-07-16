@@ -1,0 +1,67 @@
+# Stage 3 — PILOT run (guide §4: do not skip). ~5k examples, 1 epoch, end-to-end:
+# verifies loss decreases, no template/token errors, checkpoint saves+reloads,
+# and post-pilot eval shows no general-score collapse.
+#
+# Inherits the documentation caveats of train_full.yaml.
+
+run_name: "keural-sft-pilot"
+output_dir: "outputs/pilot"
+
+nproc_per_node: 2
+cuda_visible_devices: "0,1"
+
+require_target_verification: true
+
+swift_args:
+  model: "Qwen/Qwen3.6-35B-A3B"
+  # REQUIRED true: ms-swift's own default is False (ModelScope hub), which
+  # ignores our fully-populated HF Hub cache and re-downloads the entire ~70GB
+  # model from ModelScope instead (verified 2026-07-10: a pilot run left running
+  # under this default spent ~2 hours pulling only 4GB via ModelScope before
+  # being killed — would have taken 30+ hours total).
+  use_hf: true
+  # ms-swift 4.4.0 renamed train_type -> tuner_type (verified against SftArguments)
+  tuner_type: lora
+  dataset: ["data/processed/pilot.jsonl"]
+  val_dataset: ["data/processed/eval.jsonl"]
+
+  target_modules: [q_proj, k_proj, v_proj, o_proj,
+                   in_proj_qkv, in_proj_z, in_proj_b, in_proj_a, out_proj,
+                   gate_proj, up_proj, down_proj]
+  target_parameters: [gate_up_proj, down_proj]
+  lora_rank: 32
+  lora_alpha: 64
+  lora_dropout: 0.0                  # REQUIRED 0.0 — see train_full.yaml
+  freeze_vit: true
+  freeze_aligner: true
+
+  max_length: 8192
+  truncation_strategy: delete
+  loss_scale: ignore_empty_think
+  padding_free: false
+  packing: false
+
+  torch_dtype: bfloat16
+  num_train_epochs: 1
+  per_device_train_batch_size: 1
+  per_device_eval_batch_size: 1
+  gradient_accumulation_steps: 16
+  learning_rate: 1.0e-4
+  lr_scheduler_type: cosine
+  warmup_ratio: 0.05
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  gradient_checkpointing: true
+  deepspeed: zero2
+  attn_impl: sdpa
+
+  router_aux_loss_coef: 0.001
+
+  logging_steps: 5
+  save_steps: 50
+  eval_steps: 50
+  save_total_limit: 2
+  save_only_model: false
+  report_to: [tensorboard]
+  seed: 42
+  dataloader_num_workers: 4

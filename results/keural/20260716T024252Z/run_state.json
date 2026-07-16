@@ -1,0 +1,14 @@
+{
+  "config_fingerprint": "7c8cbae6dd5ca7a0",
+  "model": "/home/work/keural MoE Pro/outputs/merged/Keural-35B-A3B",
+  "revision": null,
+  "tag": "keural",
+  "backend": "vllm",
+  "suites": [
+    "korean",
+    "general",
+    "domain"
+  ],
+  "smoke": false,
+  "started": "20260716T024252Z"
+}
