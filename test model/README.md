@@ -1,13 +1,13 @@
-# Keural MoE Pro v1.0 — interactive chat test
+# Keural Nova v1.0 — interactive chat test
 
 Everything here is for **testing the fine-tuned model's responses** interactively.
-It serves **Keural MoE Pro v1.0** (checkpoint-7500) with vLLM on both H200s and gives you
+It serves **Keural Nova v1.0** (checkpoint-7500) with vLLM on both H200s and gives you
 two front-ends: a web chatbot and a terminal client.
 
 Model source: defaults to the local merged weights
 (`../outputs/merged/Keural-35B-A3B-ckpt7500`), which are byte-identical to
-[`mkd-hossain/Keural-MoE-Pro-v1.0`](https://huggingface.co/mkd-hossain/Keural-MoE-Pro-v1.0)
-— so no 72 GB download. Set `KEURAL_MODEL=mkd-hossain/Keural-MoE-Pro-v1.0` to pull from the
+[`mkd-hossain/Keural-Nova-v1.0`](https://huggingface.co/mkd-hossain/Keural-Nova-v1.0)
+— so no 72 GB download. Set `KEURAL_MODEL=mkd-hossain/Keural-Nova-v1.0` to pull from the
 Hub instead.
 
 ## Run it (two panes)

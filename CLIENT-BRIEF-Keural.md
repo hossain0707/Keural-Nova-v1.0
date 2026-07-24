@@ -1,13 +1,13 @@
-# Keural MoE Pro — Client Brief (MKD)
+# Keural Nova — Client Brief (MKD)
 
-Prepared for client inquiry. Keural MoE Pro is MKD's Korean-specialized large language model,
+Prepared for client inquiry. Keural Nova is MKD's Korean-specialized large language model,
 developed, tuned, evaluated, and deployed in-house.
 
 ---
 
 ### 1. Applied model name, version, and provider
 
-- **Product / solution provider:** **Keural MoE Pro**, developed by **MKD**.
+- **Product / solution provider:** **Keural Nova**, developed by **MKD**.
 - **Versions:** v1.0 and v1.1 released; **v1.2 in active development** (next-generation, expanded
   Korean coverage and refined quality).
 - **Architecture:** a modern **Mixture-of-Experts (MoE)** design — ~35B total parameters with
@@ -80,6 +80,6 @@ language understanding and conversation; it is not positioned as a code-generati
 
 ---
 
-**In short:** Keural MoE Pro is MKD's efficient, Korean-specialized, commercially-deployable
+**In short:** Keural Nova is MKD's efficient, Korean-specialized, commercially-deployable
 LLM — self-hostable, backed by a full in-house data-and-training pipeline, with measurable
 Korean-language gains and a clean commercial licensing footing.

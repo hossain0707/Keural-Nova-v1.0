@@ -1,4 +1,4 @@
-"""Interactive web chatbot for Keural MoE Pro v1.0.
+"""Interactive web chatbot for Keural Nova v1.0.
 
 A Gradio streaming chat UI that talks to a running vLLM OpenAI-compatible server
 (start it first with serve_vllm.sh). Multi-turn memory, streaming tokens,
@@ -52,10 +52,10 @@ def respond(message, history, system_prompt, temperature, top_p, max_tokens):
         yield partial
 
 
-with gr.Blocks(title="Keural MoE Pro v1.0 — 채팅 테스트", fill_height=True) as demo:
+with gr.Blocks(title="Keural Nova v1.0 — 채팅 테스트", fill_height=True) as demo:
     gr.Markdown(
-        "# 🗣️ Keural MoE Pro v1.0\n"
-        "한국어 파인튜닝 모델 대화 테스트 · `mkd-hossain/Keural-MoE-Pro-v1.0` "
+        "# 🗣️ Keural Nova v1.0\n"
+        "한국어 파인튜닝 모델 대화 테스트 · `mkd-hossain/Keural-Nova-v1.0` "
         "(checkpoint-7500) · 서빙: vLLM on 2× H200"
     )
     with gr.Accordion("생성 설정 (Generation settings)", open=False):

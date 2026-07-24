@@ -1,4 +1,4 @@
-# Keural SFT Pipeline — Qwen3.6-35B-A3B → Keural MoE Pro (LoRA, ms-swift, 2× H200)
+# Keural SFT Pipeline — Qwen3.6-35B-A3B → Keural Nova (LoRA, ms-swift, 2× H200)
 
 Production pipeline implementing `keural-sft-training-guide.md` (the runbook) with every
 architecture/data/tooling claim re-verified hands-on — see **`VERIFIED-FACTS.md`** for the
@@ -8,8 +8,8 @@ ground truth, including corrections where the guide was truncated or outdated.
 
 The full pipeline ran end-to-end and shipped two public models:
 
-- **[mkd-hossain/Keural-MoE-Pro-v1.0](https://huggingface.co/mkd-hossain/Keural-MoE-Pro-v1.0)** — checkpoint-7500 (~1 epoch, best held-out eval loss)
-- **[mkd-hossain/Keural-MoE-Pro-v1.1](https://huggingface.co/mkd-hossain/Keural-MoE-Pro-v1.1)** — checkpoint-15846 (2 full epochs, final)
+- **[mkd-hossain/Keural-Nova-v1.0](https://huggingface.co/mkd-hossain/Keural-Nova-v1.0)** — checkpoint-7500 (~1 epoch, best held-out eval loss)
+- **[mkd-hossain/Keural-Nova-v1.1](https://huggingface.co/mkd-hossain/Keural-Nova-v1.1)** — checkpoint-15846 (2 full epochs, final)
 
 | Benchmark | Base | v1.0 | v1.1 |
 |---|---:|---:|---:|

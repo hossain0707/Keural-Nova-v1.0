@@ -1,4 +1,4 @@
-"""Live side-by-side chat: Keural MoE Pro v1.0 vs Qwen3.6-35B-A3B (base).
+"""Live side-by-side chat: Keural Nova v1.0 vs Qwen3.6-35B-A3B (base).
 
 One prompt box, two chat panels. Your message goes to BOTH models at once and
 their replies stream in parallel, so you can compare Korean understanding and
@@ -81,7 +81,7 @@ def chat(message, k_hist, q_hist, sys_k, sys_q, temperature, max_tokens):
 
 
 with gr.Blocks(title="Keural v1.0 vs Qwen3.6 base — side by side", fill_height=True) as demo:
-    gr.Markdown("# ⚖️ Keural MoE Pro v1.0  vs  Qwen3.6-35B-A3B (base)\n"
+    gr.Markdown("# ⚖️ Keural Nova v1.0  vs  Qwen3.6-35B-A3B (base)\n"
                 "같은 질문을 두 모델에 동시에 보내고 응답을 나란히 비교하세요. "
                 "서빙: 각 모델 1× H200 · non-thinking")
     with gr.Accordion("설정 (settings)", open=False):
@@ -92,7 +92,7 @@ with gr.Blocks(title="Keural v1.0 vs Qwen3.6 base — side by side", fill_height
             temperature = gr.Slider(0.0, 1.5, value=0.7, step=0.05, label="temperature")
             max_tokens = gr.Slider(64, 2048, value=768, step=64, label="max_tokens")
     with gr.Row():
-        k_chat = gr.Chatbot(label="🟢 Keural MoE Pro v1.0", type="messages", height=460)
+        k_chat = gr.Chatbot(label="🟢 Keural Nova v1.0", type="messages", height=460)
         q_chat = gr.Chatbot(label="🔵 Qwen3.6-35B-A3B (base)", type="messages", height=460)
     with gr.Row():
         box = gr.Textbox(placeholder="메시지를 입력하고 Enter — 두 모델에 동시 전송",

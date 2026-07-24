@@ -1,4 +1,4 @@
-"""Terminal chat client for Keural MoE Pro v1.0 (no browser needed).
+"""Terminal chat client for Keural Nova v1.0 (no browser needed).
 
 Talks to the vLLM OpenAI server started by serve_vllm.sh. Multi-turn, streaming.
 Commands:  /reset  clear history   ·   /system <text>  set system prompt   ·   quit
@@ -19,7 +19,7 @@ system = ("당신의 이름은 'Keural'이며 MKD에서 개발한 AI 어시스�
 history = []
 
 print("=" * 60)
-print("Keural MoE Pro v1.0 — terminal chat  (한국어)")
+print("Keural Nova v1.0 — terminal chat  (한국어)")
 print("  quit / '/reset' / '/system <text>'")
 print("=" * 60)
 

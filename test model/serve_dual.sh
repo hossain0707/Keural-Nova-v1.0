@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Serve BOTH models at once for live side-by-side comparison:
-#   Keural MoE Pro v1.0  -> GPU 0, port 8001, name "keural-v1.0"
+#   Keural Nova v1.0  -> GPU 0, port 8001, name "keural-v1.0"
 #   Qwen3.6-35B-A3B base -> GPU 1, port 8002, name "qwen-base"
 # One model per GPU (no tensor-parallel split) so both fit simultaneously
 # (~70 GB weights each on a 143 GB H200). Run in a tmux pane; Ctrl-C stops both.

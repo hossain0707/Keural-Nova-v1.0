@@ -1,4 +1,4 @@
-# Keural MoE Pro v2 — Dataset Preparation Guide
+# Keural Nova v2 — Dataset Preparation Guide
 
 **For:** the data team preparing the v2 training set.
 **What this is:** a complete, self-contained spec for *what data to collect, how to prepare it,

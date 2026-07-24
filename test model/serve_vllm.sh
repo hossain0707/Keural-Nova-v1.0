@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Start the vLLM OpenAI-compatible server for Keural MoE Pro v1.0 on both H200s.
+# Start the vLLM OpenAI-compatible server for Keural Nova v1.0 on both H200s.
 # Run this in one tmux pane; run the chatbot (run_chatbot.sh) in another.
 #
 # Model source: defaults to the LOCAL merged weights, which are byte-identical
-# to mkd-hossain/Keural-MoE-Pro-v1.0 on Hugging Face (same merge fingerprint) —
+# to mkd-hossain/Keural-Nova-v1.0 on Hugging Face (same merge fingerprint) —
 # avoids a 72 GB re-download. To serve straight from the Hub instead:
-#   KEURAL_MODEL=mkd-hossain/Keural-MoE-Pro-v1.0 ./serve_vllm.sh
+#   KEURAL_MODEL=mkd-hossain/Keural-Nova-v1.0 ./serve_vllm.sh
 set -euo pipefail
 
 PROJECT="/home/work/keural MoE Pro"

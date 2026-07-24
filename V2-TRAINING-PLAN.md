@@ -1,4 +1,4 @@
-# Keural MoE Pro — v2 Training Plan
+# Keural Nova — v2 Training Plan
 
 Planning doc for the next fine-tune, written from the **measured results of v1.0** (not
 theory). Goal: keep everything Qwen 3.6 base can do, fix v1.0's regressions, and improve the
