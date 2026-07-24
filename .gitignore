@@ -14,3 +14,17 @@ results/*/*/logs/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+
+# gateway secrets & logs & downloaded binaries
+gateway/.env
+gateway/logs/
+gateway/bin/
+
+# Keural Orbit is a SEPARATE project (Gemma 4) with its own repo — never in this one
+Keural Orbit/
+
+# model weights / large binaries never belong in git
+*.safetensors
+*.bin
+*.pt
+test model/logs/

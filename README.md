@@ -38,6 +38,32 @@ physically relocated to `/home/work/.keural_venv`); ms-swift 4.4.0 renamed
 `train_type`→`tuner_type` and defaults to ModelScope hub (`use_hf: true` required); vLLM
 cannot serve `target_parameters` adapters (merge before serving).
 
+## v2 — in development
+
+v2 targets the known v1 weaknesses (chiefly the **HumanEval code regression** — a large share
+of upstream `keural-SFT` code rows have corrupted indentation at the source) and expands/cleans
+the Korean mix. It reuses the exact same pipeline; only the **data** and a few hyperparameters
+change.
+
+- **Dataset prep:** [`V2-DATASET-PREP.md`](V2-DATASET-PREP.md) — the plan; built by
+  [`scripts/build_dataset_v2.py`](scripts/build_dataset_v2.py) → `data/processed_v2/`
+  (146,274 rows). Key upgrades over v1: **code AST-validated** (drop/repair broken-indent
+  rows), **benchmark test-split excluded** (no contamination), **identity de-contaminated**,
+  balanced ko-conversation / clean-code / replay / math / MCQ / long-form / identity.
+- **Training plan:** [`V2-TRAINING-PLAN.md`](V2-TRAINING-PLAN.md) — 1 epoch, lower LR to
+  protect base capability, same LoRA targeting + safety gate as v1.
+- **Client brief & writeups:** [`CLIENT-BRIEF-Keural.md`](CLIENT-BRIEF-Keural.md),
+  and the launch articles under [`blog/`](blog/) (v1.0 and v1.1, with benchmark charts).
+
+## Serving (gateway)
+
+[`gateway/`](gateway/) is the OpenAI-compatible serving layer used to expose Keural Nova to
+coworkers: a small FastAPI gateway (`gateway.py`) in front of vLLM, plus launch scripts
+(`serve_v1_hct.sh` matches the production HCT config: TP=2, YaRN 1M context,
+Image-Text-to-Text). See [`gateway/GATEWAY.md`](gateway/GATEWAY.md). The gateway API key lives
+in `gateway/.env` (**never committed**). [`test model/`](test%20model/) holds simple chat/vision
+test clients.
+
 > **Read this first**
 > - The GPUs on this box are shared. Every GPU stage refuses to start while another job
 >   occupies them (do **not** kill that job; wait or coordinate).
@@ -120,11 +146,18 @@ whether the org's AI Hub registration permits commercial use before relaxing thi
 ```
 configs/            pipeline.yaml (shared), dataset.yaml, train_pilot.yaml,
                     train_full.yaml, eval.yaml, publish.yaml
-scripts/            common.py + one script per stage (see table above)
-data/               raw + processed datasets (created at runtime, hashed in manifests)
+scripts/            common.py + one script per stage; build_dataset_v2.py for v2
+gateway/            OpenAI-compatible serving layer (FastAPI + vLLM launch scripts)
+test model/         simple chat / vision test clients
+blog/               launch writeups (v1.0, v1.1) + benchmark charts
 evals/domain/       your domain eval set (placeholder)
-results/            versioned eval results + comparisons
-outputs/            checkpoints (pilot/, full/) and merged model
-logs/               per-stage logs
+results/            versioned eval results + comparisons (v1 numbers included)
+data/               raw + processed datasets (created at runtime — gitignored)
+outputs/            checkpoints + merged model (created at runtime — gitignored)
+logs/               per-stage logs (gitignored)
 VERIFIED-FACTS.md   hands-on-verified ground truth + guide corrections  ← start here
+V2-DATASET-PREP.md  V2-TRAINING-PLAN.md   the v2 plan
 ```
+
+> **Note:** *Keural Orbit* (a separate Gemma-4 fine-tune project) lives in its own repo and is
+> intentionally excluded here — this repository is **Keural Nova (v1 + v2)** only.
