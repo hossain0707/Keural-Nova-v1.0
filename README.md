@@ -64,6 +64,18 @@ Image-Text-to-Text). See [`gateway/GATEWAY.md`](gateway/GATEWAY.md). The gateway
 in `gateway/.env` (**never committed**). [`test model/`](test%20model/) holds simple chat/vision
 test clients.
 
+## Tool-calling & the non-thinking default (v1.0 / v1.1)
+
+A deployment issue was found where Nova looped instead of emitting tool calls inside agent/RAG
+frameworks. Root cause: the chat template defaulted to **thinking mode**, but Nova was trained
+**non-thinking** — so it reasoned in prose and never emitted the `<tool_call>`. Fixed by setting
+**`enable_thinking=false` as the template default** (config only — no retraining). After the fix,
+measured tool-calling: **Nova v1.1 ≈ base Qwen (~91%)**, v1.0 ~67%; the full multi-turn loop
+(call → result → answer) works with no looping. Full writeup + eval scripts:
+**[`TOOL-CALLING.md`](TOOL-CALLING.md)** and [`nova_toolcall_eval/`](nova_toolcall_eval/).
+**Deploy v1.1 for tool/agent use;** no serve/client change needed — just clear the HF cache and
+re-pull so the updated template takes effect.
+
 > **Read this first**
 > - The GPUs on this box are shared. Every GPU stage refuses to start while another job
 >   occupies them (do **not** kill that job; wait or coordinate).

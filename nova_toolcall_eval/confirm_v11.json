@@ -1,0 +1,182 @@
+{
+ "Qwen3.6-35B-A3B (base)": {
+  "correct": 11,
+  "n": 12,
+  "rows": [
+   {
+    "q": "서울 날씨 어때?",
+    "expected": "get_weather",
+    "fn": "get_weather",
+    "correct": true,
+    "call": "<tool_call><function=get_weather>\n<parameter=city>\n서울\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "What's the weather in Tokyo right now?",
+    "expected": "get_weather",
+    "fn": "get_weather",
+    "correct": true,
+    "call": "<tool_call><function=get_weather>\n<parameter=city>\nTokyo\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "비트코인 현재 가격 좀 알려줘.",
+    "expected": "get_stock_price",
+    "fn": "get_stock_price",
+    "correct": true,
+    "call": "<tool_call><function=get_stock_price>\n<parameter=ticker>\nBTC\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "What is the current price of TSLA?",
+    "expected": "get_stock_price",
+    "fn": "get_stock_price",
+    "correct": true,
+    "call": "<tool_call><function=get_stock_price>\n<parameter=ticker>\nTSLA\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "최신 인공지능 뉴스 좀 검색해줘.",
+    "expected": "web_search",
+    "fn": "web_search",
+    "correct": true,
+    "call": "<tool_call><function=web_search>\n<parameter=query>\n최신 인공지능 뉴스\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "Search the web for the latest iPhone release.",
+    "expected": "web_search",
+    "fn": "web_search",
+    "correct": true,
+    "call": "<tool_call><function=web_search>\n<parameter=query>\nlatest iPhone release\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "1234 곱하기 5678은 얼마야?",
+    "expected": "calculator",
+    "fn": "calculator",
+    "correct": true,
+    "call": "<tool_call><function=calculator>\n<parameter=expression>\n1234 * 5678\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "Compute 987 * 654 for me.",
+    "expected": "calculator",
+    "fn": null,
+    "correct": false,
+    "call": "987 * 654 = 645,498<|im_end|>"
+   },
+   {
+    "q": "지금 뉴욕 시간 몇 시야?",
+    "expected": "get_current_time",
+    "fn": "get_current_time",
+    "correct": true,
+    "call": "<tool_call><function=get_current_time>\n<parameter=timezone>\nAmerica/New_York\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "What time is it in London right now?",
+    "expected": "get_current_time",
+    "fn": "get_current_time",
+    "correct": true,
+    "call": "<tool_call><function=get_current_time>\n<parameter=timezone>\nEurope/London\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "부산 날씨 알려줘.",
+    "expected": "get_weather",
+    "fn": "get_weather",
+    "correct": true,
+    "call": "<tool_call><function=get_weather>\n<parameter=city>\n부산\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "삼성전자 주가 알려줘.",
+    "expected": "get_stock_price",
+    "fn": "get_stock_price",
+    "correct": true,
+    "call": "<tool_call><function=get_stock_price>\n<parameter=ticker>\n005930:KS\n</parameter>\n</function>\n</tool_call>"
+   }
+  ]
+ },
+ "Keural Nova v1.1": {
+  "correct": 11,
+  "n": 12,
+  "rows": [
+   {
+    "q": "서울 날씨 어때?",
+    "expected": "get_weather",
+    "fn": "get_weather",
+    "correct": true,
+    "call": "<tool_call><function=get_weather>\n<parameter=city>\n서울\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "What's the weather in Tokyo right now?",
+    "expected": "get_weather",
+    "fn": "get_weather",
+    "correct": true,
+    "call": "<tool_call><function=get_weather>\n<parameter=city>\nTokyo\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "비트코인 현재 가격 좀 알려줘.",
+    "expected": "get_stock_price",
+    "fn": "get_stock_price",
+    "correct": true,
+    "call": "<tool_call><function=get_stock_price>\n<parameter=ticker>\nBTC\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "What is the current price of TSLA?",
+    "expected": "get_stock_price",
+    "fn": "get_stock_price",
+    "correct": true,
+    "call": "<tool_call><function=get_stock_price>\n<parameter=ticker>\nTSLA\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "최신 인공지능 뉴스 좀 검색해줘.",
+    "expected": "web_search",
+    "fn": "web_search",
+    "correct": true,
+    "call": "<tool_call><function=web_search>\n<parameter=query>\n최신 인공지능 뉴스\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "Search the web for the latest iPhone release.",
+    "expected": "web_search",
+    "fn": "web_search",
+    "correct": true,
+    "call": "<tool_call><function=web_search>\n<parameter=query>\nlatest iPhone release\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "1234 곱하기 5678은 얼마야?",
+    "expected": "calculator",
+    "fn": null,
+    "correct": false,
+    "call": "## 해결 방법\n\n**1234 × 5678**의 곱을 구하기 위해, 표준 곱셈 알고리즘을 단계별로 적용하겠습니다.\n\n### 1단계: 5678의 각 자릿수에 1234를 곱하기\n\n**1234 × 8 (일 자리):**\n- 1234 × 8 = 9,872\n\n**1234 × 70"
+   },
+   {
+    "q": "Compute 987 * 654 for me.",
+    "expected": "calculator",
+    "fn": "calculator",
+    "correct": true,
+    "call": "<tool_call><function=calculator>\n<parameter=expression>\n987 * 654\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "지금 뉴욕 시간 몇 시야?",
+    "expected": "get_current_time",
+    "fn": "get_current_time",
+    "correct": true,
+    "call": "<tool_call><function=get_current_time>\n<parameter=timezone>\nAmerica/New_York\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "What time is it in London right now?",
+    "expected": "get_current_time",
+    "fn": "get_current_time",
+    "correct": true,
+    "call": "<tool_call><function=get_current_time>\n<parameter=timezone>\nEurope/London\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "부산 날씨 알려줘.",
+    "expected": "get_weather",
+    "fn": "get_weather",
+    "correct": true,
+    "call": "<tool_call><function=get_weather>\n<parameter=city>\nBusan\n</parameter>\n</function>\n</tool_call>"
+   },
+   {
+    "q": "삼성전자 주가 알려줘.",
+    "expected": "get_stock_price",
+    "fn": "get_stock_price",
+    "correct": true,
+    "call": "<tool_call><function=get_stock_price>\n<parameter=ticker>\n005930.KS\n</parameter>\n</function>\n</tool_call>"
+   }
+  ]
+ }
+}

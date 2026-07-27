@@ -1,0 +1,208 @@
+{
+ "Keural Nova v1.0": {
+  "emit": 8,
+  "correct": 8,
+  "n": 12,
+  "rows": [
+   {
+    "q": "서울 날씨 어때?",
+    "expected": "get_weather",
+    "fn": "get_weather",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=get_weather>\n<parameter=city>\n서울\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "What's the weather in Tokyo right now?",
+    "expected": "get_weather",
+    "fn": "get_weather",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=get_weather>\n<parameter=city>\nTokyo\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "비트코인 현재 가격 좀 알려줘.",
+    "expected": "get_stock_price",
+    "fn": null,
+    "emit": false,
+    "correct": false,
+    "resp": "비트코인 현재 가격은 63,000달러입니다.<|im_end|>"
+   },
+   {
+    "q": "What is the current price of TSLA?",
+    "expected": "get_stock_price",
+    "fn": "get_stock_price",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=get_stock_price>\n<parameter=ticker>\nTSLA\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "최신 인공지능 뉴스 좀 검색해줘.",
+    "expected": "web_search",
+    "fn": "web_search",
+    "emit": true,
+    "correct": true,
+    "resp": "최신 인공지능 뉴스를 검색해드리겠습니다. 잠시만 기다려주세요.\n\n<tool_call>\n<function=web_search>\n<parameter=query>\n최신 인공지능 뉴스\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "Search the web for the latest iPhone release.",
+    "expected": "web_search",
+    "fn": "web_search",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=web_search>\n<parameter=query>\nlatest iPhone release\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "1234 곱하기 5678은 얼마야?",
+    "expected": "calculator",
+    "fn": null,
+    "emit": false,
+    "correct": false,
+    "resp": "1234 곱하기 5678은 7,016,652입니다.<|im_end|>"
+   },
+   {
+    "q": "Compute 987 * 654 for me.",
+    "expected": "calculator",
+    "fn": "calculator",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=calculator>\n<parameter=expression>\n987 * 654\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "지금 뉴욕 시간 몇 시야?",
+    "expected": "get_current_time",
+    "fn": null,
+    "emit": false,
+    "correct": false,
+    "resp": "현재 뉴욕 시간은 2023년 12월 15일 금요일 오후 10시 30분입니다.<|im_end|>"
+   },
+   {
+    "q": "What time is it in London right now?",
+    "expected": "get_current_time",
+    "fn": "get_current_time",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=get_current_time>\n<parameter=timezone>\nEurope/London\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "부산 날씨 알려줘.",
+    "expected": "get_weather",
+    "fn": "get_weather",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=get_weather>\n<parameter=city>\n부산\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "삼성전자 주가 알려줘.",
+    "expected": "get_stock_price",
+    "fn": null,
+    "emit": false,
+    "correct": false,
+    "resp": "삼성전자 주식의 현재 가격을 알려드리겠습니다.\n\n삼성전자의 주식 티커는 \"005930.KS\"입니다.\n\n현재 삼성전자 주식 가격은 72,300원입니다.<|im_end|>"
+   }
+  ]
+ },
+ "Keural Nova v1.1": {
+  "emit": 11,
+  "correct": 11,
+  "n": 12,
+  "rows": [
+   {
+    "q": "서울 날씨 어때?",
+    "expected": "get_weather",
+    "fn": "get_weather",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=get_weather>\n<parameter=city>\n서울\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "What's the weather in Tokyo right now?",
+    "expected": "get_weather",
+    "fn": "get_weather",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=get_weather>\n<parameter=city>\nTokyo\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "비트코인 현재 가격 좀 알려줘.",
+    "expected": "get_stock_price",
+    "fn": "get_stock_price",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=get_stock_price>\n<parameter=ticker>\nBTC\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "What is the current price of TSLA?",
+    "expected": "get_stock_price",
+    "fn": "get_stock_price",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=get_stock_price>\n<parameter=ticker>\nTSLA\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "최신 인공지능 뉴스 좀 검색해줘.",
+    "expected": "web_search",
+    "fn": "web_search",
+    "emit": true,
+    "correct": true,
+    "resp": "최신 인공지능 관련 뉴스를 검색해 드릴게요. 잠시만 기다려 주세요.\n\n<tool_call>\n<function=web_search>\n<parameter=query>\n최신 인공지능 뉴스\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "Search the web for the latest iPhone release.",
+    "expected": "web_search",
+    "fn": "web_search",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=web_search>\n<parameter=query>\nlatest iPhone release\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "1234 곱하기 5678은 얼마야?",
+    "expected": "calculator",
+    "fn": null,
+    "emit": false,
+    "correct": false,
+    "resp": "## 해결 방법\n\n**1234 × 5678**의 곱을 구하기 위해, 표준 곱셈 알고리즘을 단계별로 적용하겠습니다.\n\n### 1단계: 5678의 각 자릿수에 1234를 곱하기\n\n**1234 × 8 (일 자리):**\n- 1234 × 8 = 9,872\n\n**1234 × 70 (십 자리):**\n- 1234 × 7 = 8,638\n- 8,638 × 10 = **86,"
+   },
+   {
+    "q": "Compute 987 * 654 for me.",
+    "expected": "calculator",
+    "fn": "calculator",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=calculator>\n<parameter=expression>\n987 * 654\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "지금 뉴욕 시간 몇 시야?",
+    "expected": "get_current_time",
+    "fn": "get_current_time",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=get_current_time>\n<parameter=timezone>\nAmerica/New_York\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "What time is it in London right now?",
+    "expected": "get_current_time",
+    "fn": "get_current_time",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=get_current_time>\n<parameter=timezone>\nEurope/London\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "부산 날씨 알려줘.",
+    "expected": "get_weather",
+    "fn": "get_weather",
+    "emit": true,
+    "correct": true,
+    "resp": "<tool_call>\n<function=get_weather>\n<parameter=city>\nBusan\n</parameter>\n</function>\n</tool_call><|im_end|>"
+   },
+   {
+    "q": "삼성전자 주가 알려줘.",
+    "expected": "get_stock_price",
+    "fn": "get_stock_price",
+    "emit": true,
+    "correct": true,
+    "resp": "삼성전자 주식의 티커 심볼은 \"005930.KS\"입니다. 이 정보를 얻기 위해 `get_stock_price` 함수를 호출하겠습니다.\n\n**단계별 추론:**\n1. **목표 식별:** 사용자는 삼성전자 주식의 현재 가격을 알고 싶어 합니다.\n2. **티커 심볼 결정:** 삼성전자 주식은 한국 증권 시장에 상장되어 있으며, 일반적으로 \"005930\" 또는 \"0"
+   }
+  ]
+ }
+}

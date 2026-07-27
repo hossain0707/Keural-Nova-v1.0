@@ -1,0 +1,124 @@
+{
+ "base Qwen": {
+  "turn1": 6,
+  "turn2": 5,
+  "n": 6,
+  "rows": [
+   {
+    "q": "서울 날씨 어때?",
+    "t1_fn": "get_weather",
+    "t1_ok": true,
+    "t2_used_result": true,
+    "t2_looped": false,
+    "t2_ok": true,
+    "final": "서울은 현재 맑고 기온은 12도입니다."
+   },
+   {
+    "q": "What's the weather in Tokyo?",
+    "t1_fn": "get_weather",
+    "t1_ok": true,
+    "t2_used_result": true,
+    "t2_looped": false,
+    "t2_ok": true,
+    "final": "The weather in Tokyo is currently rainy with a temperature of 18°C."
+   },
+   {
+    "q": "테슬라 주가 알려줘.",
+    "t1_fn": "get_stock_price",
+    "t1_ok": true,
+    "t2_used_result": true,
+    "t2_looped": false,
+    "t2_ok": true,
+    "final": "테슬라(TSLA) 주가는 현재 $245.30입니다."
+   },
+   {
+    "q": "비트코인 가격 알려줘.",
+    "t1_fn": "get_stock_price",
+    "t1_ok": true,
+    "t2_used_result": true,
+    "t2_looped": false,
+    "t2_ok": true,
+    "final": "현재 비트코인(BTC) 가격은 약 $67,000입니다."
+   },
+   {
+    "q": "지금 뉴욕 몇 시야?",
+    "t1_fn": "get_current_time",
+    "t1_ok": true,
+    "t2_used_result": false,
+    "t2_looped": false,
+    "t2_ok": false,
+    "final": "현재 뉴욕 시간은 오전 9시 15분입니다."
+   },
+   {
+    "q": "최신 AI 뉴스 검색해줘.",
+    "t1_fn": "web_search",
+    "t1_ok": true,
+    "t2_used_result": true,
+    "t2_looped": false,
+    "t2_ok": true,
+    "final": "최신 AI 뉴스 중 하나로, OpenAI가 GPT-5를 발표했다는 소식이 있습니다. 더 자세한 정보가 필요하시면 말씀해 주세요!"
+   }
+  ]
+ },
+ "Nova v1.1": {
+  "turn1": 4,
+  "turn2": 5,
+  "n": 6,
+  "rows": [
+   {
+    "q": "서울 날씨 어때?",
+    "t1_fn": "get_weather",
+    "t1_ok": true,
+    "t2_used_result": true,
+    "t2_looped": false,
+    "t2_ok": true,
+    "final": "현재 서울 날씨는 맑고 기온은 12도입니다."
+   },
+   {
+    "q": "What's the weather in Tokyo?",
+    "t1_fn": "get_weather",
+    "t1_ok": true,
+    "t2_used_result": true,
+    "t2_looped": false,
+    "t2_ok": true,
+    "final": "It's currently rainy in Tokyo with a temperature of 18°C."
+   },
+   {
+    "q": "테슬라 주가 알려줘.",
+    "t1_fn": null,
+    "t1_ok": false,
+    "t2_used_result": true,
+    "t2_looped": false,
+    "t2_ok": true,
+    "final": "테슬라(TSLA)의 현재 주가는 245.30달러입니다."
+   },
+   {
+    "q": "비트코인 가격 알려줘.",
+    "t1_fn": "get_stock_price",
+    "t1_ok": true,
+    "t2_used_result": true,
+    "t2_looped": false,
+    "t2_ok": true,
+    "final": "현재 비트코인(BTC) 가격은 67,000달러입니다."
+   },
+   {
+    "q": "지금 뉴욕 몇 시야?",
+    "t1_fn": "get_current_time",
+    "t1_ok": true,
+    "t2_used_result": false,
+    "t2_looped": false,
+    "t2_ok": false,
+    "final": "현재 뉴욕 시간은 오전 9시 15분입니다."
+   },
+   {
+    "q": "최신 AI 뉴스 검색해줘.",
+    "t1_fn": null,
+    "t1_ok": false,
+    "t2_used_result": true,
+    "t2_looped": false,
+    "t2_ok": true,
+    "final": "OpenAI에서 GPT-5를 발표했다는 소식이 있네요. 더 자세한 내용이 궁금하시면 검색 결과를 확인해 보세요."
+   }
+  ]
+ }
+}
